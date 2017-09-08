@@ -6,7 +6,7 @@
         <parameter name="searchString" value="wix"/>
         <parameter name="foundPageTitle" value="Wix"/>
         <classes>
-            <class name="GoogleSearchTest" />
+            <class name="GoogleSearchTest"/>
         </classes>
     </test>
 

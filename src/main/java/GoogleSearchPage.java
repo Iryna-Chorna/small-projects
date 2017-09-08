@@ -1,10 +1,9 @@
-
 import lombok.Getter;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -23,7 +22,7 @@ public class GoogleSearchPage {
     private List<WebElement> searchResults;
 
     @FindBy(id = "ires")
-    private WebElement resultsContainter;
+    private WebElement resultsContainer;
 
     public GoogleSearchPage(WebDriver driver) {
         this.driver = driver;
@@ -33,7 +32,7 @@ public class GoogleSearchPage {
         searchField.sendKeys(searchText);
         searchField.sendKeys(Keys.ENTER);
         new WebDriverWait(driver, TIME_OUT_IN_SECONDS)
-                .until(ExpectedConditions.visibilityOf(resultsContainter));
+                .until(ExpectedConditions.visibilityOf(resultsContainer));
     }
 
     public void openFirstFoundLink() {
