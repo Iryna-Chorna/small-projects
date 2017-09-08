@@ -1,5 +1,6 @@
 
 import lombok.Getter;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -18,7 +19,7 @@ public class GoogleSearchPage {
     @FindBy(id = "lst-ib")
     private WebElement searchField;
 
-    @FindBy(className = "g")
+    @FindBy(css = ".g .r")
     private List<WebElement> searchResults;
 
     @FindBy(id = "ires")
@@ -35,7 +36,14 @@ public class GoogleSearchPage {
                 .until(ExpectedConditions.visibilityOf(resultsContainter));
     }
 
-//    public List<WebElement> getSearchResults() {
-//        return searchResults;
-//    }
+    public void openFirstFoundLink() {
+        searchResults.get(0).click();
+        waitForPageLoad();
+    }
+
+    private void waitForPageLoad() {
+        new WebDriverWait(driver, TIME_OUT_IN_SECONDS)
+                .until(driver -> ((JavascriptExecutor)driver)
+                        .executeScript("return document.readyState").equals("complete"));
+    }
 }
