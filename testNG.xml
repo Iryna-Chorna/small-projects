@@ -2,7 +2,9 @@
 
 <suite name="TestAll">
 
-    <test name="searchWix">
+    <test name="OpenFirstFoundLink">
+        <parameter name="searchString" value="wix"/>
+        <parameter name="foundPageTitle" value="Wix"/>
         <classes>
             <class name="GoogleSearchTest" />
         </classes>
