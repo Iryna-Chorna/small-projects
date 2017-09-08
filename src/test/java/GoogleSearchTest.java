@@ -4,6 +4,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -15,7 +16,9 @@ import static org.hamcrest.Matchers.is;
 
 public class GoogleSearchTest {
     public static final String GOOGLE_URL = "http:\\google.com";
-    WebDriver driver;
+    public static final int RESULTS_COUNT = 11;
+
+    private WebDriver driver;
 
     @BeforeMethod
     public void setUp() throws Exception {
@@ -28,12 +31,13 @@ public class GoogleSearchTest {
     @Test
     public void testSearchForWix() throws Exception {
         driver.get(GOOGLE_URL);
-        WebElement searchField = driver.findElement(By.id("lst-ib"));
-        searchField.sendKeys("Wix");
-        searchField.sendKeys(Keys.ENTER);
+        GoogleSearchPage searchPage = PageFactory.initElements(driver, GoogleSearchPage.class);
+        searchPage.searchFor("Wix");
 
-        List<WebElement> searchResults = driver.findElements(By.cssSelector(".g"));
-        Assert.assertThat(searchResults.size(), is(11));
+        // The line below may show "compilation error" if you don't have Lombok plugin for IntelliJ IDEA installed
+        // Nevertheless it will not prevent you from running tests successfully
+        List<WebElement> searchResults = searchPage.getSearchResults();
+        Assert.assertThat(searchResults.size(), is(RESULTS_COUNT));
     }
 
     @AfterTest
