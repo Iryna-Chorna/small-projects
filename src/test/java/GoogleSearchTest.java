@@ -19,6 +19,7 @@ public class GoogleSearchTest {
     public void setUp() throws Exception {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--lang=en");
+        options.addArguments("--start-maximized");
         driver = new ChromeDriver(options);
     }
 
@@ -29,7 +30,7 @@ public class GoogleSearchTest {
         GoogleSearchPage searchPage = PageFactory.initElements(driver, GoogleSearchPage.class);
         searchPage.searchFor(searchString);
         searchPage.openFirstFoundLink();
-        Assert.assertThat(driver.getTitle(), containsString(foundPageTitle));
+        Assert.assertThat("Unexpected page title", driver.getTitle(), containsString(foundPageTitle));
     }
 
     @AfterTest
